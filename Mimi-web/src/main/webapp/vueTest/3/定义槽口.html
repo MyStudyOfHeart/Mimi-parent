@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>将模板放在template标签中</title>
+<script src="../vue.js"></script>
+</head>
+<body>
+	<template id="a">
+	  <h1>aa->{{msg}}</h1>
+	  <!-- 定义一个槽口 -->
+	  <slot>这是默认的情况</slot>
+	</template>
+	
+	<div id="box">
+	 <aa>
+	   <!-- 插入 -->
+	   <h1>哈哈哈</h1>
+	 </aa>
+	</div>
+	<script>
+		var vm = new Vue({
+			el : '#box',
+			components:{
+			  aa:{
+			  	data(){
+			  		return{
+			  			msg:'我是组件aa的msg',
+			  		}
+			  	},
+			    template:"#a",
+			  }
+			}
+		});
+	</script>
+</body>
+</html>

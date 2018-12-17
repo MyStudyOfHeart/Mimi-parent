@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>测试post 与 get</title>
+</head>
+<script src="vue.js"></script>
+<script src="vue-resource.js"></script>
+<script>
+	window.onload = function() {
+		var vw=new Vue({
+			el : "body",
+			data : {
+				cat:{name:'三七',age:1},
+			},
+			methods:{
+			 
+			}
+		});
+		
+		vw.$watch('cat',function(content){
+		 alert(content);
+		},{deep:true})
+	}
+</script>
+<body>
+	<form>
+		姓名：<input type="text" v-model="cat.name"><br>
+		 年龄：<input type="text" v-model="cat.age"><br>
+	</form>
+	
+	<br>
+</body>
+</html>

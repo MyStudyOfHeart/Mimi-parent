@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>理解全局和局部</title>
+<script src="../vue.js"></script>
+<style>
+</style>
+</head>
+<body>
+	<div id="box">
+		<aaa></aaa>
+		<bbb></bbb>
+	</div>
+	<div id="box1">
+		<aaa></aaa>
+	</div>
+	<aaa></aaa>
+	<script>
+		//定义一个全局组件，在定义过的vue元素中都有效
+		Vue.component('aaa', Vue.extend({
+			template : '<h3>我是全局组件</h3>'
+		}));
+		//定义一个局部组件，只有在id=box中才有效
+		var Bbb=Vue.extend({
+			template : '<h3>我是局部组件</h3>',
+		})
+	
+		new Vue({
+			el : '#box',
+			data : {
+			},
+			components:{
+			  bbb:Bbb,
+			}
+		});
+	
+		new Vue({
+			el : '#box1',
+			data : {
+			},
+		});
+	</script>
+</body>
+</html>

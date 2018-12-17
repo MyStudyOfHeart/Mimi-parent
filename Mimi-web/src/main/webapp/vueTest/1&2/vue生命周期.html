@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VUE TEST</title>
+</head>
+<script src="vue.js"></script>
+
+<body id="box">
+{{msg}}
+<script>
+        var vm=new Vue({
+            el: '#box',
+            data:{
+                msg:'这个方法不是放在方法mthods里面的,而是与methods平级的'
+            },
+            created:function(){
+                alert('实例已经创建');
+            },
+            beforeCompile:function(){
+                alert('编译之前');
+            },
+            compiled:function(){
+                alert('编译之后');
+            },
+            ready:function(){
+                alert('插入到文档中');
+            },
+            beforeDestroy:function(){
+                alert('销毁之前');
+            },
+            destroyed:function(){
+                alert('销毁之后');
+            }
+        });
+
+        /*点击页面销毁vue对象*/
+        document.onclick=function(){
+            vm.$destroy();
+        };
+    </script>
+</body>
+</html>

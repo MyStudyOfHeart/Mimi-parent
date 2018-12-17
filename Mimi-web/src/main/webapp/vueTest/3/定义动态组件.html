@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>将模板放在template标签中</title>
+<script src="../vue.js"></script>
+</head>
+<body>
+    <template id="aa">
+      <h3>我是自定义模板aa</h3>
+    </template>
+     <template id="bb">
+      <h3>我是自定义模板bb</h3>
+    </template>
+	<div id="box">
+	<!--动态组件 改变is后面的名字可以改变 用哪个组件，但是这个要定义当前组件的data下面 -->
+	<component :is="a"></component>
+	</div>
+	<script>
+		var vm = new Vue({
+			el : '#box',
+			data:{
+				a:'bb',
+			},
+			components:{
+			  aa:{
+			  	template:'#aa',
+			  },
+			  bb:{
+			  	template:'#bb',
+			  }
+			}
+		});
+	</script>
+</body>
+</html>

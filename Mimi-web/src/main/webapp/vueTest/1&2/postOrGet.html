@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>测试post 与 get</title>
+</head>
+<script src="vue.js"></script>
+<script src="vue-resource.js"></script>
+<script>
+	window.onload = function() {
+		new Vue({
+			el : "body",
+			data : {
+				name : "",
+				age : "",
+				data:"",
+				cat:{},
+			},
+			methods:{
+			  
+			  check:function(){
+			    this.$http.post('/mimi/vue/get2.action',{
+			      name:this.name,
+			      age:this.age,
+			    }).then(
+			    function(res){
+			       this.data=res.data.result.name;
+			    });
+			  },
+			
+			  check2:function(){
+			    this.cat['name']=this.name;
+			    this.cat['age']=this.age;
+			    var a=JSON.stringify(this.cat);
+			    this.$http({
+			      url:'/mimi/vue/get.action',
+			      data: a,
+			      dataType:'json',
+			      type:'get',
+			      success:function(data){
+			       this.data=data;
+			      }
+			      
+			    });
+			  }
+			}
+		});
+	}
+</script>
+<body>
+	<form>
+		姓名：<input type="text" v-model="name"><br>
+		 年龄：<input type="text" v-model="age"><br>
+		 {{data}}
+	</form>
+	
+	<br>
+	<input type="button" value="vue格式" @click="check()">
+	<input type="button" value="传统方法" @click="check2()">
+</body>
+</html>

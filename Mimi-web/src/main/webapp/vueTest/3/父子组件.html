@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>将模板放在template标签中</title>
+<script src="../vue.js"></script>
+</head>
+<body>
+	<template id="a">
+	  <h1>aa->{{msg}}</h1>
+	  <bb :m="msg"></bb>
+	</template>
+	<div id="box">
+	 <aa></aa>
+	</div>
+	<script>
+		var vm = new Vue({
+			el : '#box',
+			components:{
+			  aa:{
+			  	data(){
+			  		return{
+			  			msg:'我是组件aa的msg',
+			  		}
+			  	},
+			    template:"#a",
+			    components:{
+			     bb:{
+			      	props:['m'],
+			        template:"<h5>bb->{{m}}</h5>"
+			      }
+			    }
+			  }
+			}
+		});
+	</script>
+</body>
+</html>
