@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VUE TEST</title>
+</head>
+<script src="vue.js"></script>
+<script>
+	window.onload = function() {
+		new Vue({
+			el : 'body',
+			data : {
+				a : 1,
+				msg : 'v-text可以代替{{}}',
+				msg1 : '<h3>v-html可以代替{{{}}},且vue2.0取消了{{{}}}</h3>',
+				item:"",
+				items:[],
+			},
+			methods : {
+			    add(){
+			        this.items.push(this.item);
+			    }
+			},
+			computed : {
+				b : function() {
+					return this.a + 1;
+				},
+				c : {
+					get : function() {
+						return this.a + 2;
+					},
+					set : function(val) {
+						this.a = val;
+					}
+				}
+			}
+		});
+	}
+</script>
+<body v-cloak>
+	<div>v-cloak防止闪烁</div>
+	<div v-text="msg"></div>
+	<div v-html="msg1"></div>
+	<hr>
+	<h3>计算属性的使用</h3>
+	<input type="text" v-model="a">
+	 {{a}},{{b}},{{c}}
+	<hr>
+	<h3>循环</h3>
+	<input type="text" v-model="item"><input type="button" value="添加" @click="add()">
+	<li v-for="it in items"track-by='$index'>
+	 <ul>{{it|uppercase}}</ul>
+	</li>
+</body>
+</html>

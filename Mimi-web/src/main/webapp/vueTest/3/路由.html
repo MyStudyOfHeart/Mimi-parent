@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>最基本路由</title>
+	<script src="../vue.js"></script>
+	<script src="../vue-router/dist/vue-router.min.js"></script>
+</head>
+<body>
+    <!-- 这是home的子组件 -->
+	<template id="homeTem">
+		<h1>主页</h1>
+		。。。
+		<a v-link="{path:'/home/login'}">登录</a>
+		<a v-link="{path:'/home/register'}">注册</a>
+		<div>
+	      <router-view></router-view>
+	    </div>
+	</template>
+	<!-- 这是news的子组件 -->
+	<template id="newsTem">
+		<h1>新闻</h1>
+		。。。<br>
+		<a v-link="{path:'/news/detail/001'}">新闻001</a><br>
+	  	<a v-link="{path:'/news/detail/002'}">新闻页002</a>
+	 	<!-- 给路由的对象占个位子 -->
+	  	<div>
+	     	<router-view></router-view>
+	 	</div>
+	</template>
+	
+	<template id="newsDetail">
+		<!-- 获取：id 的参数 -->
+		{{$route.params|json}}
+	</template>
+	
+	<div id="box">
+	  <a v-link="{path:'/home'}">主页</a><br>
+	  <a v-link="{path:'/news'}">新闻页</a>
+	  <!-- 给路由的对象占个位子 -->
+	  <div>
+	      <router-view></router-view>
+	  </div>
+	</div>
+
+	<script>
+		//1.创建一个根组件
+		var App=Vue.extend();
+		//2.Home 和 news 的组件
+		var Home=Vue.extend({
+			template:'#homeTem',
+		});
+		var News=Vue.extend({
+			template:'#newsTem',
+		});
+		//3.准备路由
+		var router=new VueRouter();
+		//4关联起来
+		router.map({
+		    'home':{
+		        component:Home,
+		        //子组件 感觉起名字叫sub组件比较合适，但是这里叫sub routes
+		        subRoutes:{
+		           'login':{
+		               component:{
+		                   template:'<h3>登录组件</h3>',
+		               },
+		           },
+		           'register':{
+		               component:{
+		                   template:'<h3>注册组件</h3>',
+		               },
+		           }
+		        },
+		    },
+		    'news':{
+		        component:News,
+		        subRoutes:{
+		        	'/detail/:id':{
+		        		component:{
+		        			template:"#newsDetail",
+		        		}
+		        	}
+		        },
+		    }
+		});
+		//5.启动路由
+		router.start(App,'#box');
+		//6.初始化路由 改变路由的路径
+		router.redirect({
+		    "/":"/home",
+		});
+	</script>
+</body>
+</html>

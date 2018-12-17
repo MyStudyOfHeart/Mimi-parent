@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>将模板放在template标签中</title>
+<script src="../vue.js"></script>
+</head>
+<body>
+    <template id="aa">
+      <h3>我是自定义模板</h3>
+    </template>
+	<div id="box">
+	 <aa></aa>
+	</div>
+	<script>
+		var vm = new Vue({
+			el : '#box',
+			components:{
+			  aa:{
+			  	template:'#aa',
+			  }
+			}
+		});
+	</script>
+</body>
+</html>

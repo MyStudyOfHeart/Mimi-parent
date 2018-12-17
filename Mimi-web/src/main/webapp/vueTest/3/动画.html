@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>最简单的动画</title>
+	<script src="../vue.js"></script>
+	<link rel="stylesheet" href="../animate.css/animate.css">
+	<style>
+		#box{
+			width:400px;
+			margin: 0 auto;
+		}
+		#div1{
+			width:100px;
+			height:100px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<input type="button" value="按钮" @click="toggle">
+		<!--1这个的class是类选择器要是animated 2transition要在下面定义-->
+		<div id="div1" class="animated" v-show="bSign" transition="bounce"></div>
+	</div>
+
+	<script>
+		new Vue({
+			el:'#box',
+			data:{
+				bSign:true
+			},
+			methods:{
+				toggle(){
+					this.bSign=!this.bSign;
+				}
+			},
+			//3.这个要定义在transitions加s中，属性是enterClass,和leaveClass
+			transitions:{ //定义所有动画名称
+				bounce:{
+					enterClass:'flip',
+					leaveClass:'hinge'
+				}
+			}
+		});
+	</script>
+</body>
+</html>

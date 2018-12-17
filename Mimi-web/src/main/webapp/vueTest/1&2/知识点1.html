@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>demo</title>
+  </head>
+  <script src="vue.js"></script>
+  <script>
+    window.onload=function(){
+	  new Vue({
+	    el:"#demo",//相当于类选择器
+		data:{    //里面放数据
+		   msg:"abc",
+		   msg1:["a","b","c","a"],
+		   msg2:{a:"A",b:"B",c:"C"},
+		   flag:true
+		},
+		methods:{  //专门存放方法
+		   show:function(){
+		     this.msg1.push("0");
+		   },
+		   change:function(){
+		     if(this.flag){
+			   this.flag=false;
+			 }else{
+			 this.flag=true;
+			 }
+		   }
+		}
+	  });
+	};
+  </script>
+  <body>
+   <div id="demo">
+    <h4>双向绑定</h4>
+    <input type="test" v-model="msg">
+    {{msg}}-------{{*msg}}---{{{msg}}}
+	<hr>
+	<h4>数组循环</h4>
+	<ul v-for="num in msg1">
+	 <li>{{$index}},{{num}}</li>
+	</ul>
+	<hr>
+	<h4>json循环</h4>
+	<ul v-for="json in msg2">
+	 <li>{{$index}},{{$key}},{{json}}</li>
+	</ul>
+	<ul v-for="(k,v) in msg2">
+	 <li>{{$index}},{{k}},{{v}}</li>
+	</ul>
+	<hr>
+	<h4>点击事件</h4>
+	<input type="button" v-on:click="show()" value="测试"> <!-- on:后面可以有mouseout/mouseover/mousedown/dbclick-->
+	<hr>
+	<h4>显示隐藏</h4>
+	<input type="button" v-on:click="change()" value="变">
+	<div style="width:100px;height:100px;background:red" v-show="flag"></div>
+	</div>
+  </body>
+</html>

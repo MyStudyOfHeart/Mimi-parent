@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>升级版路由</title>
+    <script src="vue.js"></script>
+    <script src="vue-router.min.js"></script>
+    <link rel="stylesheet" href="animate.css">
+</head>
+<body>
+	<div id="App">
+		<router-link to="/home">主页</router-link>
+		<router-link to="/news">新闻</router-link>
+		 <div>
+            <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+                <router-view></router-view>
+            </transition>
+        </div>
+	</div>
+	<script>
+		var Home={
+			template:"<h1>主页</h1>"
+		};
+		var News={
+			template:`
+				 <div>
+                    <h1>新闻</h1>
+                    <ul>
+                        <li><router-link to="/news/username">新闻1</router-link></li>
+                    </ul>
+                    <div>
+                        <router-view></router-view>
+                    </div>
+                </div>`,
+            
+		};
+		var Username={
+			template:'<h1>特大新闻</h1>'
+		};
+		const routers=[
+			{path:'/home',component:Home},
+			{path:'/news',component:News,children:[
+			{path:'username',component:Username},
+			]},
+			{path:'*',redirect:'/home'}
+		];
+		const router=new VueRouter({
+			routes:routers
+		});
+		new Vue({
+			router:router,
+			el:"#App",
+		});
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
